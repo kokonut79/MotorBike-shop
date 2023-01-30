@@ -1,0 +1,51 @@
+﻿@model MotorbikeShop.Models.ViewModels.OrderVm.MyOrders;
+@{
+    ViewData["Title"] = "MyOrders";
+}
+
+<h1>MyOrders</h1>
+
+<p>
+    <a asp-controller="Motorbike" asp-action="AllMotors">Make Another Order</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Status
+            </th>
+            <th>
+                User
+            </th>
+            <th>
+                Motorbike
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.motorbike.Count(); i++)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.motorbike[i].Brand)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.motorbike[i].Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.motorbike[i].YearOfProduction)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.motorbike[i].Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Status[i])
+                </td>
+                <td>
+                    <a asp-action="Remove" asp-route-id="@Model.OrderCount[i].Id">Remove</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

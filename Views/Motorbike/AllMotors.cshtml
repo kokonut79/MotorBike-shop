@@ -1,0 +1,63 @@
+﻿@model MotorbikeShop.Models.ViewModels.MotorbikeVm.AllMotorsVm;
+@using MotorbikeShop.Entities
+@using MotorbikeShop.Session;
+@{
+    ViewData["Title"] = "AllMotors";
+    var loggedUser = this.ViewContext.HttpContext.Session.GetObject<User>("loggedUser");
+}
+
+<h1>AllMotors</h1>
+
+@if (loggedUser.Role == "Admin")
+{
+    <p>
+        <a asp-action="Edit">Create New</a>
+    </p>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Brand
+            </th>
+            <th>
+                Model
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                YearOfProduction
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Motorbikes)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Brand)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.YearOfProduction)
+                </td>
+                <td>
+                    <a asp-controller="Comment" asp-action="AllCommentForMotor" asp-route-id="@item.Id"> Comments |</a>
+                    <a asp-controller="Order" asp-action="MakeOrder" asp-route-id="@item.Id"> Order |</a>
+                    @if (loggedUser.Role == "Admin")
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Id"> Edit |</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id"> Delete </a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,46 @@
+﻿@model MotorbikeShop.Models.ViewModels.OrderVm.AllOrderVm;
+@{
+    ViewData["Title"] = "AllOrders";
+}
+
+<h1>AllOrders</h1>
+
+<p>
+    <a asp-controller="Motorbike" asp-action="AllMotors">Make Another Order</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Status
+            </th>
+            <th>
+                User
+            </th>
+            <th>
+                Motorbike
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Orders)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MotorbikeId)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">EditStatus</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
